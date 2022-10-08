@@ -1,36 +1,57 @@
-import { useState, useEffect } from "react";
-import Heading from "./components/Heading";
-import Box from "./components/Box";
+// React Imports...
+import { useState, useEffect, useRef } from "react";
 
-import red from "./sounds/red.mp3";
-import green from "./sounds/green.mp3";
-import blue from "./sounds/blue.mp3";
-import yellow from "./sounds/yellow.mp3";
+// App Imports...
+import Heading from "./components/Heading";
 import wrong from "./sounds/wrong.mp3";
 import StartButton from "./components/StartButton";
+import GameInfo from "./components/GameInfoBox";
+import BoxContainer from "./components/BoxContainer";
+import InfoIcon from "./components/InfoIcon";
 
+// App
 function App() {
+
+  // States, Reference and constants
+  const ref = useRef(null)
   const [gamePattern, setGamePattern] = useState([]);
   const [userClickedPattern, setUserClickedPattern] = useState([]);
   const [level, setLevel] = useState(0);
   const [heading, setHeading] = useState(`Press Start to start the Game`);
   const [randomChosenColour, setRandomChosenColour] = useState(null)
   const [wrongAnswer, setWrongAnswer] = useState(false);
-  const buttonColour = ["red", "blue", "green", "yellow"];
   const [isStarted, setIsStarted] = useState(false)
+  const [showInfo, setShowInfo] = useState(false)
+  const buttonColour = ["red", "blue", "green", "yellow"];
+
+  // Functions
   const playSound = (url) => {
+    //For Playing Audo
     const audio = new Audio(url);
     audio.play();
   };
 
+  const handleInfoClick = () => {
+    // To open Info Menu
+    ref.current.click();
+  }
+
+  const userClick = (color) => {
+    // To check for user Click
+    setUserClickedPattern([...userClickedPattern, color]);
+  };
+
+
   const nextSequence = () => {
+    // To Generate next sequence 
     setHeading(null);
-    setLevel(level + 1); 
+    setLevel(level + 1);
     setUserClickedPattern([]);
     setRandomChosenColour(buttonColour[Math.floor(Math.random() * 4)]);
   };
 
   const checkAnswer = (i) => {
+    // To check the user answer 
     if (userClickedPattern[i] !== gamePattern[i]) {
       setWrongAnswer(true);
       setIsStarted(false)
@@ -48,17 +69,16 @@ function App() {
     }
   };
 
-  const userClick = (color) => {
-    setUserClickedPattern([...userClickedPattern, color]);
-  };
 
   useEffect(() => {
+    // To re-render component after user clicks
     if (userClickedPattern.length !== 0) {
       checkAnswer(userClickedPattern.length - 1);
     }
   }, [userClickedPattern]);
 
   useEffect(() => {
+    // To re-render component after a new color is choosen
     if (randomChosenColour) {
       setGamePattern((gamepattern) => [...gamepattern, randomChosenColour]);
       setRandomChosenColour(null)
@@ -66,60 +86,40 @@ function App() {
   }, [randomChosenColour]);
 
   useEffect(() => {
+    // To re-render component after the level changes or the new color choosed or the user selects a wrong answer
 
-  }, [wrongAnswer, level,gamePattern])
+  }, [wrongAnswer, level, gamePattern])
   useEffect(() => {
+    // To Update heading when the game starts
     if (isStarted) {
-  setHeading("Starting...")
-}
+      setHeading("Starting...")
+    }
   }, [isStarted])
 
   return (
-    <div
-      className={`w-full min-w-[80vw] h-[100vh] ${wrongAnswer ? "bg-[#ff0000] opacity-80" : "bg-[#011F3F]"
-        } text-center `}
-    >
-      <Heading level={level} heading={heading} />
-      <div className=" block w-fit mx-auto pt-48 ">
-        <div className="flex">
-          <Box
-            color="red"
-            url={red}
-            next={randomChosenColour}
-            userClick={userClick}
-            playSound={playSound}
-          />
-          <Box
-            color="blue"
-            url={blue}
-            next={randomChosenColour}
-            userClick={userClick}
-            playSound={playSound}
-          />
-        </div>
+    <>
+      {/* Info menu for the game */}
+      <GameInfo reference={ref} showInfo={showInfo} setShowInfo={setShowInfo} />
 
-        <div className="flex">
-          <Box
-            color="yellow"
-            url={yellow}
-            next={randomChosenColour}
-            userClick={userClick}
-            playSound={playSound}
-          />
-          <Box
-            color="green"
-            url={green}
-            next={randomChosenColour}
-            userClick={userClick}
-            playSound={playSound}
-          />
-        </div>
+      {/* Main container for the game */}
+      <div className={`w-full min-w-[80vw] h-[100vh] ${wrongAnswer ? "bg-[#ff0000] opacity-80" : "bg-[#011F3F]"} text-center ${showInfo && "blur-sm"}`}>
 
-        <StartButton level={level} nextSequence={nextSequence} isStarted={isStarted} setIsStarted={setIsStarted} />
+        {/* Info Icon component */}
+        {!showInfo && !isStarted && <InfoIcon handleInfoClick={handleInfoClick} />}
+
+        {/* Heading Component */}
+        <Heading level={level} heading={heading} />
+
+        {/* Box Container Component */}
+        <BoxContainer randomChosenColour={randomChosenColour} userClick={userClick} playSound={playSound} />
+
+        {/* Start Button Component */}
+        <StartButton nextSequence={nextSequence} isStarted={isStarted} setIsStarted={setIsStarted} />
       </div>
-    </div>
+    </>
   );
 }
 
+//Exporting the App
 export default App;
 
