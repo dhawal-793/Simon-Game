@@ -23,14 +23,10 @@ function App() {
   const [isStarted, setIsStarted] = useState(false)
   const [showInfo, setShowInfo] = useState(false)
   const buttonColour = ["red", "blue", "green", "yellow"];
+  const wrongSound = new Audio(wrong);
+
 
   // Functions
-  const playSound = (url) => {
-    //For Playing Audo
-    const audio = new Audio(url);
-    audio.play();
-  };
-
   const handleInfoClick = () => {
     // To open Info Menu
     ref.current.click();
@@ -56,7 +52,7 @@ function App() {
       setWrongAnswer(true);
       setIsStarted(false)
       setHeading("Game-Over Start Again");
-      playSound(wrong);
+      wrongSound.play();
       setTimeout(() => {
         setWrongAnswer(false);
       }, 200);
@@ -112,7 +108,7 @@ function App() {
         <Heading level={level} heading={heading} />
 
         {/* Box Container Component */}
-        <BoxContainer randomChosenColour={randomChosenColour} userClick={userClick} playSound={playSound} />
+        <BoxContainer randomChosenColour={randomChosenColour} userClick={userClick}  />
 
         {/* Start Button Component */}
         <StartButton nextSequence={nextSequence} isStarted={isStarted} setIsStarted={setIsStarted} />
