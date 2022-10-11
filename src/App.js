@@ -75,6 +75,7 @@ function App() {
     if (userClickedPattern.length !== 0) {
       checkAnswer(userClickedPattern.length - 1);
     }
+    // eslint-disable-next-line
   }, [userClickedPattern]);
 
   useEffect(() => {
@@ -102,7 +103,7 @@ function App() {
       <GameInfo reference={ref} showInfo={showInfo} setShowInfo={setShowInfo} />
 
       {/* Main container for the game */}
-      <div className={`w-full min-w-[80vw] h-[100vh] ${wrongAnswer ? "bg-[#ff0000] opacity-80" : "bg-[#011F3F]"} text-center ${showInfo && "blur-sm"}`}>
+      <div className={`w-full h-[100vh] ${wrongAnswer ? "bg-[#ff0000] opacity-80" : "bg-[#011F3F]"} text-center ${showInfo && "blur-sm"}`}>
 
         {/* Info Icon component */}
         {!showInfo && !isStarted && <InfoIcon handleInfoClick={handleInfoClick} />}
