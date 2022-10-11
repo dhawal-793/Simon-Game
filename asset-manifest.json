@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/Simon-Game/static/css/main.0731bd70.css",
-    "main.js": "/Simon-Game/static/js/main.9abfd171.js",
+    "main.css": "/Simon-Game/static/css/main.c078b75b.css",
+    "main.js": "/Simon-Game/static/js/main.2b57c3b9.js",
     "static/media/green.mp3": "/Simon-Game/static/media/green.bb7cfbf2f804efc7cc38.mp3",
     "static/media/red.mp3": "/Simon-Game/static/media/red.cda1b21ae7cfb8bc5f8b.mp3",
     "static/media/yellow.mp3": "/Simon-Game/static/media/yellow.ea398e3ee263b328f564.mp3",
     "static/media/wrong.mp3": "/Simon-Game/static/media/wrong.09270cc34fb672dfee40.mp3",
     "static/media/blue.mp3": "/Simon-Game/static/media/blue.0407f8865464d427dc9a.mp3",
     "index.html": "/Simon-Game/index.html",
-    "main.0731bd70.css.map": "/Simon-Game/static/css/main.0731bd70.css.map",
-    "main.9abfd171.js.map": "/Simon-Game/static/js/main.9abfd171.js.map"
+    "main.c078b75b.css.map": "/Simon-Game/static/css/main.c078b75b.css.map",
+    "main.2b57c3b9.js.map": "/Simon-Game/static/js/main.2b57c3b9.js.map"
   },
   "entrypoints": [
-    "static/css/main.0731bd70.css",
-    "static/js/main.9abfd171.js"
+    "static/css/main.c078b75b.css",
+    "static/js/main.2b57c3b9.js"
   ]
 }
